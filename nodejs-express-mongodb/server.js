@@ -1,7 +1,12 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import db from "./app/models/index.js";
+import myRoutes from "./app/routes/tutorial.routes.js";
+// const myRoutes = require('./app/routes/tutorial.routes');
+
 const app = express();
+
 var corsOptions = {
   origin: "http://localhost:8081"
 };
@@ -11,7 +16,6 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const db = require("./app/models");
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
@@ -31,7 +35,6 @@ app.get("/", (req, res) => {
 });
 
 // set port, listen for requests
-import myRoutes from "./app/routes/tutorial.routes";
 myRoutes(app);
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

@@ -1,18 +1,18 @@
 version: "3.8"
 services:
-  my_mongo:
+  db_service:
     image: mongo:5.0.2
     restart: unless-stopped
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=123456
     ports:
-      - 7017:27017  
+      - 27017:27017  
     volumes:
       - db:/data/db
   app:
     depends_on:
-      - my_mongo
+      - db_service
     build: ./nodejs-express-mongodb
     restart: unless-stopped
     ports:

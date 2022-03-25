@@ -1,12 +1,14 @@
-// var router = require("express").Router();
-import tutorials from "../controllers/tutorial.controller.js";
-import router from 'express';
+import express from 'express';
+import {create, findAll} from "../controllers/tutorial.controller.js";
+const router = express.Router();
 
-module.exports = function myRoutes(app){
+const myRoutes = (app) => {
     // Create a new Tutorial
-    router.Router().post("/", tutorials.create);
+    router.post("/", create);
     // Retrieve all Tutorials
-    router.Router().get("/", tutorials.findAll);
+    router.get("/", findAll);
     // Retrieve all published Tutorials
     app.use('/api/tutorials', router);
 };
+
+export default myRoutes;
